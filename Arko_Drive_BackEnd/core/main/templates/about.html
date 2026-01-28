@@ -1,0 +1,60 @@
+{# core/main/templates/about.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive — Մեր Մասին{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <!-- Hero/about -->
+  <section class="hero hero-about">
+    <img src="{% static 'images/about-hero.jpg' %}" alt="Մեր Մասին">
+    <div class="overlay">
+      <h1>Մեր Մասին</h1>
+    </div>
+  </section>
+
+  <!-- Մեր ավտոմեքենաները -->
+  <section class="section-cars">
+    <div class="container">
+      <h2>Մեր ավտոմեքենաները</h2>
+      {% for car in car_items %}
+        <p>{{ car.description }}</p>
+        <div class="cars-image">
+          <img src="{{ car.image.url }}" alt="Մեր ավտոպարկը">
+        </div>
+      {% endfor %}
+    </div>
+  </section>
+
+  <!-- Դարձնենք երթևեկությունը ավելի... -->
+  <section class="section-values">
+    <div class="container">
+      <h2>Դարձնենք երթևեկությունը ավելի</h2>
+      <div class="values-list">
+        {% for val in value_items %}
+          <div class="value-item">
+            <img src="{{ val.icon.url }}" alt="{{ val.title }}">
+            <h3>{{ val.title }}</h3>
+          </div>
+        {% endfor %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Մեր պատմությունն ու արժեքները -->
+  <section class="section-history">
+    <div class="container">
+      <h2>Մեր պատմությունն ու արժեքները</h2>
+      {% for hist in history_items %}
+        {% if hist.title %}
+          <h3>{{ hist.title }}</h3>
+        {% endif %}
+        <p>{{ hist.content }}</p>
+      {% endfor %}
+    </div>
+  </section>
+{% endblock %}

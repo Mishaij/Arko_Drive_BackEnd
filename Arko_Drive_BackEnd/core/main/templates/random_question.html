@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Պատահական հարց{% endblock %}
+
+{% block content %}
+<div class="test-wrapper">
+  <div class="test-header">
+    <h1>Պատահական հարցեր</h1>
+  </div>
+
+  {% if no_questions %}
+    <p>Հարցեր չեն գտնվել։</p>
+  {% else %}
+  <form method="post" id="question-form" action="#question">
+    {% csrf_token %}
+    <div class="question" id="question">
+      <h3>{{ question.text }}</h3>
+
+      {% if question.image %}
+        <img src="{{ question.image.url }}" class="q-image" alt="Image" style="display: block; margin: 20px auto;">
+      {% endif %}
+
+      <div class="answers {% if answered %}disabled{% endif %}">
+        {% for answer in question.answers.all %}
+          <label>
+            <input type="radio" name="answer" value="{{ answer.id }}" {% if answered %}disabled{% endif %}
+              {% if answer.id == selected_id %}checked{% endif %}>
+            {{ answer.text }}
+            {% if answered %}
+              {% if answer.is_correct %}<span class="result-icon correct">✓</span>{% endif %}
+              {% if not answer.is_correct and answer.id == selected_id %}<span class="result-icon incorrect">✗</span>{% endif %}
+            {% endif %}
+          </label>
+        {% endfor %}
+      </div>
+    </div>
+  </form>
+
+  <div style="display: flex; justify-content: space-between; margin-top: 20px;">
+    <a href="{% url 'random_question' %}?step={{ step|add:'-1' }}" class="submit-btn">← Նախորդ</a>
+    <a href="{% url 'random_question' %}?step={{ step|add:'1' }}" class="submit-btn">Հաջորդ →</a>
+  </div>
+  {% endif %}
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const inputs = document.querySelectorAll('input[type="radio"][name="answer"]');
+    inputs.forEach(input => {
+      input.addEventListener('change', function () {
+        location.hash = "#question";
+        document.getElementById('question-form').submit();
+      });
+    });
+  });
+</script>
+{% endblock %}
+

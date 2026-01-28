@@ -1,0 +1,47 @@
+{# core/main/templates/trafficsigns.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive — Ճանապարհային նշաններ{% endblock %}
+
+{% block content %}
+  <main class="signs-page">
+    <h1 class="page-title">Ճանապարհային նշաններ</h1>
+
+    <nav class="groups-nav" id="groupsNav">
+      <ul>
+        {% for group in sign_groups %}
+          <li>
+            <a href="#group-{{ group.pk }}">{{ forloop.counter }}. {{ group.name }}</a>
+          </li>
+        {% endfor %}
+      </ul>
+    </nav>
+
+    {% for group in sign_groups %}
+      <section id="group-{{ group.pk }}" class="sign-group">
+        <h2>{{ forloop.counter }}. {{ group.name }}</h2>
+
+        <div class="sign-table head">
+          <span class="num">Նշանի համարը</span>
+          <span class="pic">Նկարը</span>
+          <span class="title">Անվանումը</span>
+        </div>
+
+        {% for sign in group.signs.all %}
+          <div class="sign-table">
+            <span class="num">{{ sign.number }}</span>
+            <span class="pic">
+              <img src="{{ sign.image.url }}" alt="{{ sign.title }}">
+            </span>
+            <span class="title">{{ sign.title }}</span>
+          </div>
+        {% empty %}
+          <p>Այս խմբում նշաններ չկան։</p>
+        {% endfor %}
+      </section>
+    {% empty %}
+      <p>Տվյալ պահին ցուցադրել նշաններ չկան։</p>
+    {% endfor %}
+  </main>
+{% endblock %}

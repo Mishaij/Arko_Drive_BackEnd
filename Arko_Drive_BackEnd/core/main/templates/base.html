@@ -1,0 +1,104 @@
+{# core/main/templates/base.html #}
+{% load static %}
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>{% block title %}ArkoDrive{% endblock %}</title>
+
+  {# Фавикон #}
+  <link rel="icon" href="{% static 'images/DRF API (1).PNG' %}" type="image/x-icon">
+
+  {# Шрифты и глобальный CSS #}
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@400;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+
+  {% block extra_head %}{% endblock %}
+</head>
+<body>
+
+  {# ==================== НАВИГАЦИЯ ==================== #}
+  <header class="navbar">
+    <div class="logo">
+      <a href="{% url 'index' %}">
+        <img src="{% static 'images/DRF API (1).PNG' %}" alt="Arko Drive" />
+      </a>
+    </div>
+
+    {# Кнопка–гамбургер для мобильных #}
+    <button class="hamburger" aria-label="Открыть меню" type="button">
+      <span class="bar"></span>
+      <span class="bar"></span>
+      <span class="bar"></span>
+    </button>
+
+    {# Меню навигации #}
+    <nav class="nav-container">
+      <ul class="menu">
+        <li><a href="{% url 'index' %}">Գլխավոր էջ</a></li>
+        <li><a href="{% url 'theory_list' %}">Տեսական քննություններ</a></li>
+        <li><a href="{% url 'tests_list' %}">Թեստեր</a></li>
+        <li><a href="{% url 'packages' %}">Փաթեթներ</a></li>
+        <li><a href="{% url 'trafficsigns' %}">Ճանապարհային Նշաններ</a></li>
+        <li><a href="{% url 'about' %}">Մեր մասին</a></li>
+      </ul>
+    </nav>
+  </header>
+
+
+  <main>
+    {% block content %}{% endblock %}
+  </main>
+
+
+  <footer class="footer">
+    <div class="links">
+      <ul>
+        <li><a href="{% url 'index' %}">Գլխավոր էջ</a></li>
+        <li><a href="{% url 'about' %}">Մեր մասին</a></li>
+        <li><a href="{% url 'theory_list' %}">Տեսական դասընթացներ</a></li>
+      </ul>
+      <ul>
+        <li><a href="{% url 'tests_list' %}">Քննական թեստեր</a></li>
+        <li><a href="{% url 'packages' %}">Փաթեթներ</a></li>
+        <li><a href="{% url 'trafficsigns' %}">Ճանապարհային նշաններ</a></li>
+      </ul>
+    </div>
+    <div class="divider"></div>
+    <div class="copy-and-social">
+      <div class="copy">
+        <p>
+          Հարցաշարը վերցված է
+          <a href="https://www.police.am/" target="_blank" rel="noopener">Police.am</a>
+          կայքից
+        </p>
+        <p>Բոլոր իրավունքները պաշտպանված են © 2025</p>
+      </div>
+      {# Блок социальных иконок #}
+      <div class="social-icons">
+        <a href="https://www.facebook.com/share/16XFntcFQ9/?mibextid=wwXIfr" target="_blank" rel="noopener">
+          <img src="{% static 'images/Facebook_icon_(black).svg.png' %}" alt="Facebook" />
+        </a>
+        <a href="https://www.instagram.com/arko_drive/profilecard/?igsh=MWU1OG1tanY3aHh1dQ==" target="_blank" rel="noopener">
+          <img src="{% static 'images/intagram.png' %}" alt="Instagram" />
+        </a>
+      </div>
+    </div>
+  </footer>
+
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      const burger = document.querySelector('.hamburger');
+      const navCont = document.querySelector('.nav-container');
+      burger.addEventListener('click', function() {
+        navCont.classList.toggle('open');
+        burger.classList.toggle('open');
+      });
+    });
+  </script>
+
+  {% block extra_scripts %}{% endblock %}
+</body>
+</html>

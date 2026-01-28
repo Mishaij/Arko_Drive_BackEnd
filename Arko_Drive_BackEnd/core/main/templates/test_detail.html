@@ -1,0 +1,50 @@
+{# core/main/templates/test_detail.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive ‒ {{ test.title }}{% endblock %}
+
+{% block extra_head %}
+  <link rel="stylesheet" href="{% static 'css/test.css' %}" />
+{% endblock %}
+
+{% block content %}
+  <section class="test-wrapper">
+    <div class="test-header">
+      <h1>{{ test.title }}</h1>
+      <div id="timer">30:00</div>
+    </div>
+
+    <div id="results-summary" class="hidden"></div>
+
+    <form id="test-form">
+      {% for question in test.questions.all %}
+        <div class="question" data-qid="q{{ forloop.counter }}">
+          <h3>{{ forloop.counter }}. {{ question.text }}</h3>
+          {% if question.image %}
+            <img
+              class="q-image"
+              src="{{ question.image.url }}"
+              alt="հարց {{ forloop.counter }}"
+              style="display: block; margin: 0 auto;"
+            >
+          {% endif %}
+          <div class="answers">
+            {% for answer in question.answers.all %}
+              <label {% if answer.is_correct %}data-correct="true"{% endif %}>
+                <input type="radio" name="q{{ forloop.parentloop.counter }}" />
+                {{ answer.text }}
+              </label>
+            {% endfor %}
+          </div>
+        </div>
+      {% endfor %}
+
+      <button type="submit" class="submit-btn">Ավարտել</button>
+    </form>
+  </section>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="{% static 'js/test.js' %}" defer></script>
+{% endblock %}

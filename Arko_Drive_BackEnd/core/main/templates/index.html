@@ -1,0 +1,144 @@
+{# core/main/templates/index.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive — Գլխավոր{% endblock %}
+
+{% block content %}
+  <!-- Hero Slider -->
+ <!-- Hero Slider -->
+<section class="hero-slider">
+  <div class="slide active">
+    <img src="{% static 'images/pexels-thatguycraig000-1588077.jpg' %}" alt="Slide 1">
+    <div class="slide-text">
+      <h1>ՍՏԱՑԵՔ ՁԵՐ ՎԱՐՈՐԴԱԿԱՆ ԻՐԱՎՈՒՆՔԸ ՄԵԶ ՄՈՏ</h1>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="{% static 'images/Black and White Minimalist Brand Guidelines Presentation (1) 1.png' %}" alt="Slide 2">
+    <div class="slide-text">
+      <h1>ԻՄԱՑԵՔ ԱՎԵԼԻՆ ՄԵՐ ԴԱՍԸՆԹԱՑՆԵՐԻ ՄԱՍԻՆ</h1>
+    </div>
+  </div>
+  <div class="slide">
+    <img src="{% static 'images/DRF API (1).PNG' %}" alt="Slide 3">
+    <div class="slide-text">
+      <h1>ՄԵՆՔ ՁԵԶ ԿՕԳՆԵՆՔ ՀԱՂԹԱՐԱԿԵԼ ՔՆՆՈՒԹՅՈՒՆԸ</h1>
+    </div>
+  </div>
+
+  <!-- Кнопки -->
+  <button class="slider-btn prev">&#10094;</button>
+  <button class="slider-btn next">&#10095;</button>
+</section>
+
+
+  <!-- Почему нас выбирают -->
+  <section class="section-why">
+    <h2>Ինչո՞ւ սովորել մեզ մոտ</h2>
+    <div class="features-list">
+      <div class="feature-item">
+        <div class="icon">
+          <img src="{% static 'images/b6a9f778-6597-4f2c-9836-5f32eca0074e 2.png' %}" alt="">
+        </div>
+        <div class="text">Ուսուցման ընթացքում ցուցաբերվում է անհատական մոտեցում:</div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">
+          <img src="{% static 'images/Group 1.png' %}" alt="">
+        </div>
+        <div class="text">
+          Տեսական դասընթացները անցկացվում են ինչպես անհատական 
+          այնպես և խմբային տարբերակով։
+        </div>
+      </div>
+      <div class="feature-item">
+        <div class="icon">
+          <img src="{% static 'images/image 1.png' %}" alt="">
+        </div>
+        <div class="text">Գործնական դասընթացները անցկացվում են քննական մեքենաներով։</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Сетка карточек на фоне машины -->
+  <section class="section-grid">
+    <img
+      class="bg"
+      src="{% static 'images/Black and White Minimalist Brand Guidelines Presentation (1) 1.png' %}"
+      alt="Car background"
+    />
+    <div class="grid">
+      <a href="{% url 'tests_list' %}" class="card">
+        <div class="icon">
+          <img src="{% static 'images/Test.png' %}" alt="Թեստեր" />
+        </div>
+        <div class="label">Թեստեր</div>
+      </a>
+      <a href="{% url 'theory_list' %}" class="card">
+        <div class="icon">
+          <img src="{% static 'images/harcashar.png' %}" alt="Տեսական դասընթացներ" />
+        </div>
+        <div class="label">Տեսական քննության հարցաշարեր</div>
+      </a>
+      <a href="{% url 'trafficsigns' %}" class="card">
+        <div class="icon">
+          <img src="{% static 'images/Nshan.png' %}" alt="Ճանապարհային նշաններ" />
+        </div>
+        <div class="label">Ճանապարհային նշաններ</div>
+      </a>
+      <a href="{% url 'packages' %}" class="card">
+        <div class="icon">
+          <img src="{% static 'images/Patet.png' %}" alt="Փաթեթներ" />
+        </div>
+        <div class="label">Փաթեթներ</div>
+      </a>
+    </div>
+  </section>
+
+<script>
+  const slides = document.querySelectorAll('.hero-slider .slide');
+  const nextBtn = document.querySelector('.slider-btn.next');
+  const prevBtn = document.querySelector('.slider-btn.prev');
+  let current = 0;
+  let autoSlide;
+
+  function showSlide(index) {
+    slides.forEach(slide => slide.classList.remove('active'));
+    slides[index].classList.add('active');
+  }
+
+  function nextSlide() {
+    current = (current + 1) % slides.length;
+    showSlide(current);
+  }
+
+  function prevSlide() {
+    current = (current - 1 + slides.length) % slides.length;
+    showSlide(current);
+  }
+
+  nextBtn.addEventListener('click', () => {
+    nextSlide();
+    resetAutoSlide();
+  });
+
+  prevBtn.addEventListener('click', () => {
+    prevSlide();
+    resetAutoSlide();
+  });
+
+  function startAutoSlide() {
+    autoSlide = setInterval(nextSlide, 5000);
+  }
+
+  function resetAutoSlide() {
+    clearInterval(autoSlide);
+    startAutoSlide();
+  }
+
+  startAutoSlide();
+</script>
+
+{% endblock %}
+

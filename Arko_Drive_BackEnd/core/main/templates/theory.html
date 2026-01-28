@@ -1,0 +1,24 @@
+{# core/main/templates/theory.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive – Թեստեր{% endblock %}
+
+{% block content %}
+  <main>
+    <section class="tests-category1">
+      <h2>Տեսական ուսուցման հարցաշարեր</h2>
+
+      <div class="tests-grid1">
+        {% for group in groups %}
+          <a href="{% url 'theory_detail' group.pk %}" class="test-card1">
+            <div class="number1">Խումբ {{ forloop.counter }}</div>
+            <div class="title1">{{ group.title }}</div>
+          </a>
+        {% empty %}
+          <p>Թեմատիկ հարցաշարեր չկան։</p>
+        {% endfor %}
+      </div>
+    </section>
+  </main>
+{% endblock %}

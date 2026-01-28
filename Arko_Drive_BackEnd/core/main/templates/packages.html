@@ -1,0 +1,75 @@
+{# core/main/templates/packages.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive — Փաթեթներ{% endblock %}
+
+{% block content %}
+  <main>
+    <section class="section-title">
+      <h2>Տեսական + Գործնական Փաթեթներ</h2>
+    </section>
+    <section class="packages-grid">
+      {% for pkg in packages_full %}
+        <div class="package-card">
+          <div class="price">{{ pkg.price|floatformat:0 }} ֏</div>
+          <div class="name">{{ pkg.name }}</div>
+          <ul class="features">
+            {% for feat in pkg.features.all %}
+              <li>
+                <img src="{% static 'images/done_check_mark_icon_175525.webp' %}" alt="">
+                {{ feat.description }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% empty %}
+        <p>Պահեկաններ չկան։</p>
+      {% endfor %}
+    </section>
+
+    <section class="section-title">
+      <h2>Տեսական Փաթեթներ</h2>
+    </section>
+    <section class="packages-grid">
+      {% for pkg in packages_theory %}
+        <div class="package-card">
+          <div class="price">{{ pkg.price|floatformat:0 }} ֏</div>
+          <div class="name">{{ pkg.name }}</div>
+          <ul class="features">
+            {% for feat in pkg.features.all %}
+              <li>
+                <img src="{% static 'images/done_check_mark_icon_175525.webp' %}" alt="">
+                {{ feat.description }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% empty %}
+        <p>Տեսական փաթեթներ չկան։</p>
+      {% endfor %}
+    </section>
+
+    <section class="section-title">
+      <h2>Գործնական Փաթեթներ</h2>
+    </section>
+    <section class="packages-grid">
+      {% for pkg in packages_practical %}
+        <div class="package-card">
+          <div class="price">{{ pkg.price|floatformat:0 }} ֏</div>
+          <div class="name">{{ pkg.name }}</div>
+          <ul class="features">
+            {% for feat in pkg.features.all %}
+              <li>
+                <img src="{% static 'images/done_check_mark_icon_175525.webp' %}" alt="">
+                {{ feat.description }}
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% empty %}
+        <p>Գործնական փաթեթներ չկան։</p>
+      {% endfor %}
+    </section>
+  </main>
+{% endblock %}

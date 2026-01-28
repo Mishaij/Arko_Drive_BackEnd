@@ -1,0 +1,26 @@
+{# core/main/templates/tests.html #}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ArkoDrive ‒ Քննական թեստեր{% endblock %}
+
+{% block content %}
+  <section class="tests-section">
+    <h1>Քննական թեստեր</h1>
+    <p>
+      Ընտրեք թեստը և ստուգեք ձեր գիտելիքները։ Հարցաշարերը վերցված են
+      <a href="https://www.police.am" target="_blank" rel="noopener">Police.am</a> կայքից։
+    </p>
+
+    <div class="tests-grid">
+      {% for test in tests %}
+        <a class="test-card" href="{% url 'test_detail' test.pk %}">{{ test.title }}</a>
+      {% empty %}
+        <p>Թեստեր չկան։</p>
+      {% endfor %}
+      <a class="test-card" href="{% url 'random_question' %}">Պատահական թեստեր</a>
+
+
+    </div>
+  </section>
+{% endblock %}
