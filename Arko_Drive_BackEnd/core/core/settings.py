@@ -78,11 +78,11 @@ WSGI_APPLICATION = 'core.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'arko_drive_autoschool',
-        'USER': 'root',
-        'PASSWORD': '1111',
-        'HOST':'localhost',
-        'PORT':'3306',
+        'NAME': os.getenv('MYSQL_DATABASE', 'arko_drive_autoschool'),
+        'USER': os.getenv('MYSQL_USER', 'root'),
+        'PASSWORD': os.getenv('MYSQL_PASSWORD', ''),
+        'HOST': os.getenv('MYSQL_HOST', 'localhost'),
+        'PORT': os.getenv('MYSQL_PORT', '3306'),
     }
 }
 
